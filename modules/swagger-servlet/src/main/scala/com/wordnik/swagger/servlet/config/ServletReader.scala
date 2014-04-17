@@ -87,6 +87,7 @@ class ServletReader extends ClassReader with ClassReaderUtils {
             case "" => opa.response.getName
             case e: String => "%s[%s]".format(e, opa.response.getName)
           }
+
           val responseAnnotations = method.getAnnotation(classOf[ApiResponses])
           val apiResponses = {
             if(responseAnnotations == null) List()
@@ -113,7 +114,8 @@ class ServletReader extends ClassReader with ClassReaderUtils {
             authorizations, // authorizations
             parameters, // params
             apiResponses, // errors
-            None)
+            None,
+            opa.requestTimeout)
         }
       }
 

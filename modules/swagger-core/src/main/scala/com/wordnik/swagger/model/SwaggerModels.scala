@@ -100,7 +100,8 @@ case class Operation (
   authorizations: List[Authorization] = List.empty,
   parameters: List[Parameter] = List.empty,
   responseMessages: List[ResponseMessage] = List.empty,
-  `deprecated`: Option[String] = None)
+  `deprecated`: Option[String] = None,
+  requestTimeout: Int = 0)
 
 case class Parameter (
   name: String,

@@ -51,8 +51,8 @@ object TestSpecs {
   }
 
   def getSimple = {
-    val str = 
-"""
+    val str =
+      """
 {
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
@@ -281,7 +281,7 @@ object TestSpecs {
     }
   }
 }
-"""
+      """
     parse(str).extract[ApiListing]
   }
 

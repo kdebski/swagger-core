@@ -117,7 +117,7 @@ trait JaxrsApiReader extends ClassReader with ClassReaderUtils {
       genericParamTypes = parentMethods.map(pm => pm.getGenericParameterTypes).reduceRight(_ ++ _) ++ method.getGenericParameterTypes
     }
 
-    val (nickname, produces, consumes, protocols, authorizations) = {
+    val (nickname, produces, consumes, protocols, authorizations, requestTimeout) = {
       if(apiOperation != null) {
         (
         (if(apiOperation.nickname != null && apiOperation.nickname != "") 
@@ -149,9 +149,15 @@ trait JaxrsApiReader extends ClassReader with ClassReaderUtils {
             new com.wordnik.swagger.model.Authorization(a.value, scopes)
           }).toList
           case _ => List()
-        })
+        },
+          (if(apiOperation.requestTimeout >= 0)
+                  apiOperation.requestTimeout
+                else
+                  0
+                )
+          )
       }
-      else(method.getName, List(), List(), List(), List())
+      else(method.getName, List(), List(), List(), List(), 0)
     }
     val params = parentParams ++ (for((annotations, paramType, genericParamType) <- (paramAnnotations, paramTypes, genericParamTypes).zipped.toList) yield {
       if(annotations.length > 0) {
@@ -213,7 +219,8 @@ trait JaxrsApiReader extends ClassReader with ClassReaderUtils {
       authorizations = authorizations,
       parameters = params ++ implicitParams,
       responseMessages = apiResponses,
-      `deprecated` = Option(isDeprecated))
+      `deprecated` = Option(isDeprecated),
+      `requestTimeout` = requestTimeout)
   }
 
   def readMethod(method: Method, parentParams: List[Parameter], parentMethods: ListBuffer[Method]): Option[Operation] = {

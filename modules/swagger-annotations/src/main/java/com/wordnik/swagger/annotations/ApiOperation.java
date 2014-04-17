@@ -62,6 +62,9 @@ public @interface ApiOperation {
   /** protocols that this Api requires (i.e. https) */
   String protocols() default "";
 
+  /** timeout in miliseconds after which service request should be treat as an unreachable in this API, default 0 means no timeout */
+  int requestTimeout() default 0;
+
   /** authorizations required by this Api */
   //String authorizations() default "";
 

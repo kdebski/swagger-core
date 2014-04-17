@@ -18,7 +18,8 @@ class ContainerResource {
     notes = "No details provided",
     response = classOf[Sample],
     responseContainer = "List",
-    position = 2)
+    position = 2,
+    requestTimeout = -999)
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "Invalid ID", response = classOf[InvalidInputModel]),
     new ApiResponse(code = 404, message = "object not found", response = classOf[NotFoundModel])))

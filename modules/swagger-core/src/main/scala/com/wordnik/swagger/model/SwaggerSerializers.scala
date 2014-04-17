@@ -202,7 +202,9 @@ object SwaggerSerializers extends Serializers {
         authorizations,
         (json \ "parameters").extract[List[Parameter]],
         (json \ "responseMessages").extract[List[ResponseMessage]],
-        (json \ "deprecated").extractOpt[String]
+        (json \ "deprecated").extractOpt[String],
+
+        (json \ "requestTimeout").extractOrElse(0)
       )
     }, {
       case x: Operation =>
@@ -705,7 +707,9 @@ trait Serializers {
         (json \ "authorizations").extractOrElse(List()),
         (json \ "parameters").extract[List[Parameter]],
         (json \ "responseMessages").extract[List[ResponseMessage]],
-        (json \ "deprecated").extractOpt[String]
+        (json \ "deprecated").extractOpt[String],
+        (json \ "requestTimeout").extractOrElse(0)
+
       )
     }, {
       case x: Operation =>
