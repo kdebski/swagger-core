@@ -37,7 +37,6 @@ class SpecFilterTest extends FlatSpec with ShouldMatchers {
 
   it should "filter away everything" in {
     val spec = TestSpecs.getSimple
-    println(spec)
     val p = new SpecFilter().filter(spec, new EatEverythingFilter, Map(), Map(), Map())
     p.apis.size should be (0)
     p.models should be (None)
