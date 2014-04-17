@@ -267,8 +267,6 @@ class PlayApiReader(val routes: Option[Routes]) extends JaxrsApiReader {
         case e: String => "%s[%s]".format(e, apiOperation.response.getName)
       }
 
-      val requestTimeout = apiOperation.requestTimeout
-
       val responseAnnotations = method.getAnnotation(classOf[ApiResponses])
 
       val apiResponses = processResponsesAnnotation(responseAnnotations)
@@ -292,8 +290,8 @@ class PlayApiReader(val routes: Option[Routes]) extends JaxrsApiReader {
         authorizations,
         params ++ implicitParams,
         apiResponses,
-        Option(isDeprecated))),
-        requestTimeout
+        Option(isDeprecated),
+        apiOperation.requestTimeout))
     } else {
       None
     }

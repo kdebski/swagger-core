@@ -36,7 +36,6 @@ class BasicResourceTest extends FlatSpec with ShouldMatchers {
     getOp.parameters.size should be (1)
     getOp.requestTimeout should be (999)
 
-
     val param = getOp.parameters.head
     param.name should be ("id")
     param.dataType should be ("string")
